@@ -5,7 +5,7 @@ A React + Vite frontend with a basic Uniswap V3 DEX dashboard, built with the Un
 ## 🚀 Live Demo
 
 _Deployed on Vercel:_
-[https://your-app-url.vercel.app](https://your-app-url.vercel.app)
+[https://v3-arbitrum-dex-dashboard.netlify.app/](https://v3-arbitrum-dex-dashboard.netlify.app/)
 
 ---
 
@@ -57,8 +57,8 @@ _Deployed on Vercel:_
 ### 1. Clone the repo
 
 ```bash
-git clone
-cd uniswap-v3-arbitrum-dashboard
+git clone https://github.com/MoFahimKh/V3-Arbitrum-DEX-Dashboard.git
+cd V3-Arbitrum-DEX-Dashboard
 ```
 
 ### 2. Install dependencies
@@ -174,8 +174,8 @@ src/
 
 ## 📬 Contact & Submission
 
-- **GitHub:** [URL](URL)
-- **Deployed App:** [URL](URL)
+- **GitHub:** [https://github.com/MoFahimKh/V3-Arbitrum-DEX-Dashboard](https://github.com/MoFahimKh/V3-Arbitrum-DEX-Dashboard)
+- **Deployed App:** [https://v3-arbitrum-dex-dashboard.netlify.app/](https://v3-arbitrum-dex-dashboard.netlify.app/)
 
 Please reach out if you have questions!
 
