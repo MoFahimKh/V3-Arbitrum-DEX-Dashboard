@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_TOKENS } from "@/queries/tokens";
 import { useNavigate } from "react-router-dom";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { SearchInput } from "@/components/ui/searchInput";
 
 export const TokenList = () => {
   const [searchFilter, setSearchFilter] = useState("");
   const [sortBy, setSortBy] = useState("totalValueLockedUSD");
-  const [sortDirection, setSortDirection] = useState("desc");
+  const [sortDirection, setSortDirection] = useState<"desc" | "asc">("desc");
   const navigate = useNavigate();
 
   const { data, loading, error } = useQuery(GET_TOKENS, {
@@ -22,12 +22,12 @@ export const TokenList = () => {
 
   const filteredTokens =
     data?.tokens?.filter(
-      (token) =>
+      (token: any) =>
         token.symbol.toLowerCase().includes(searchFilter.toLowerCase()) ||
         token.name.toLowerCase().includes(searchFilter.toLowerCase())
     ) || [];
 
-  const handleSort = (field) => {
+  const handleSort = (field: string) => {
     if (sortBy === field) {
       setSortDirection(sortDirection === "desc" ? "asc" : "desc");
     } else {
@@ -45,7 +45,7 @@ export const TokenList = () => {
     );
 
   const mockPriceChange = () => (Math.random() * 4 - 2).toFixed(2);
-  const mockSparkline = (change) => (
+  const mockSparkline = (change: string) => (
     <div
       className={`w-20 h-8 rounded flex items-center justify-center text-xs font-medium ${
         parseFloat(change) >= 0
@@ -60,10 +60,11 @@ export const TokenList = () => {
   return (
     <div className="space-y-1">
       <div className="flex items-center gap-4">
-        <Input
-          placeholder="Filter by name or symbol..."
+        <SearchInput
           value={searchFilter}
           onChange={(e) => setSearchFilter(e.target.value)}
+          onClear={() => setSearchFilter("")}
+          placeholder="Filter by name or symbol..."
           className="max-w-sm"
         />
       </div>
@@ -95,7 +96,7 @@ export const TokenList = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredTokens.map((token, index) => {
+            {filteredTokens.map((token: any, index: number) => {
               const change1h = mockPriceChange();
               const change1d = mockPriceChange();
 

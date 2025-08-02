@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { SEARCH_TOKENS } from "@/queries/tokens";
 import { Input } from "@/components/ui/input";
@@ -9,6 +9,7 @@ export const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [ethPrice, setEthPrice] = useState<number>(0);
+  const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
   const { data, loading } = useQuery(SEARCH_TOKENS, {
@@ -29,15 +30,35 @@ export const SearchBar = () => {
     setSearchTerm("");
     setShowResults(false);
   };
+
+  const handleClear = () => {
+    setSearchTerm("");
+    setShowResults(false);
+    inputRef.current?.focus();
+  };
+
   return (
     <div className="relative w-80">
-      <Input
-        placeholder="Search tokens..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        onBlur={() => setTimeout(() => setShowResults(false), 200)}
-      />
-
+      <div className="relative">
+        <Input
+          ref={inputRef}
+          placeholder="Search tokens..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onBlur={() => setTimeout(() => setShowResults(false), 200)}
+          className="pr-8"
+        />
+        {searchTerm && (
+          <button
+            type="button"
+            onClick={handleClear}
+            className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Clear"
+          >
+            &#10006;
+          </button>
+        )}
+      </div>
       {showResults && (
         <div className="absolute top-full left-0 right-0 bg-card border border-border rounded-md shadow-lg z-50 max-h-60 overflow-y-auto">
           {loading ? (
