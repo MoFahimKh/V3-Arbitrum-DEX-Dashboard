@@ -5,6 +5,16 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { SearchInput } from "@/components/ui/searchInput";
 
+interface Token {
+  __typename: "Token";
+  id: string;
+  symbol: string;
+  name: string;
+  totalValueLockedUSD: string;
+  volumeUSD: string;
+  derivedETH: string;
+}
+
 export const TokenList = () => {
   const [searchFilter, setSearchFilter] = useState("");
   const [sortBy, setSortBy] = useState("totalValueLockedUSD");
@@ -22,7 +32,7 @@ export const TokenList = () => {
 
   const filteredTokens =
     data?.tokens?.filter(
-      (token: any) =>
+      (token: Token) =>
         token.symbol.toLowerCase().includes(searchFilter.toLowerCase()) ||
         token.name.toLowerCase().includes(searchFilter.toLowerCase())
     ) || [];
@@ -96,7 +106,7 @@ export const TokenList = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredTokens.map((token: any, index: number) => {
+            {filteredTokens.map((token: Token, index: number) => {
               const change1h = mockPriceChange();
               const change1d = mockPriceChange();
 
@@ -124,7 +134,7 @@ export const TokenList = () => {
                   <td className="p-4">
                     $
                     {parseFloat(
-                      (token.totalValueLockedUSD * 50).toString()
+                      (parseFloat(token.totalValueLockedUSD) * 50).toString()
                     ).toLocaleString()}
                   </td>
                   <td className="p-4">
