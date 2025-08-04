@@ -1,11 +1,8 @@
-import {
-  USDC_ADDRESS,
-  USDC_ABI,
-  UNISWAP_V3_ROUTER,
-  UNISWAP_ROUTER_ABI,
-} from "@/config/constants";
+import { UNISWAP_V3_ROUTER } from "@/config/constants";
 import { Button } from "../ui/button";
 import { useUniswap } from "@/hooks/useUniswap";
+import ApproveIcon from "../../public/icons/charger.svg";
+import BuyIcon from "../../public/icons/bubble.svg";
 
 export const WalletInteractions = ({ tokenOutAddress }) => {
   const {
@@ -26,6 +23,7 @@ export const WalletInteractions = ({ tokenOutAddress }) => {
         className="flex items-center gap-3  text-[#00FFF2] bg-[#004441] hover:bg-[#0e2222] px-6 h-10  rounded-2xl text-[20px]"
         style={{ borderRadius: "10px" }}
       >
+        <img src={ApproveIcon} alt="" />
         {approveStatus === "pending"
           ? "Approving..."
           : approveStatus === "success"
@@ -35,9 +33,10 @@ export const WalletInteractions = ({ tokenOutAddress }) => {
       <Button
         disabled={buyStatus === "pending" || !isConnected}
         onClick={() => handleBuy(tokenOutAddress, "0.001")}
-        className="flex items-center gap-3  text-[#00FFF2] bg-[#004441] hover:bg-[#0e2222] px-6 h-10  rounded-2xl text-[20px] w-[233px]"
+        className="flex items-center gap-3  text-[#00FFF2] bg-[#004441] hover:bg-[#0e2222] px-6 h-10  rounded-2xl text-[20px] w-[266px]"
         style={{ borderRadius: "10px" }}
       >
+        <img src={BuyIcon} alt="" />
         {buyStatus === "pending"
           ? "Buying..."
           : buyStatus === "success"
