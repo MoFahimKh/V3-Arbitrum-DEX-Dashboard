@@ -1,10 +1,6 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
-
-const httpLink = createHttpLink({
-  uri: "https://gateway.thegraph.com/api/d5520cfdbbe00799c565aafa7a6d9449/subgraphs/id/3V7ZY6muhxaQL5qvntX1CFXJ32W7BxXZTGTwmpH5J4t3",
-});
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 export const apolloClient = new ApolloClient({
-  link: httpLink,
+  uri: "https://gateway.thegraph.com/api/d5520cfdbbe00799c565aafa7a6d9449/subgraphs/id/FbCGRftH4a3yZugY7TnbYgPJVEv2LvMT6oF1fxPe9aJM",
   cache: new InMemoryCache(),
 });

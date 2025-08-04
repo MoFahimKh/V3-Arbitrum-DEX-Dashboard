@@ -44,7 +44,7 @@ export const GET_TOKEN_BY_ID = gql`
 export const SEARCH_TOKENS = gql`
   query SearchTokens($searchTerm: String!) {
     tokens(
-      first: 10
+      first: 5
       where: {
         or: [
           { symbol_contains_nocase: $searchTerm }
@@ -58,6 +58,7 @@ export const SEARCH_TOKENS = gql`
       symbol
       name
       derivedETH
+      volumeUSD
     }
   }
 `;
@@ -72,6 +73,7 @@ export const GET_TOKEN_DETAIL = gql`
       derivedETH
       totalValueLockedUSD
       volumeUSD
+      totalSupply
     }
     bundle(id: "1") {
       ethPriceUSD
@@ -80,19 +82,19 @@ export const GET_TOKEN_DETAIL = gql`
 `;
 
 export const GET_TOKEN_DAY_DATAS = gql`
-  query GetTokenDayDatas($token: String!) {
-    tokenDayDatas(
-      first: 30
-      orderBy: date
-      orderDirection: desc
-      where: { token: $token }
-    ) {
-      date
-      priceUSD
-      volumeUSD
+  query GetTokenDayDatas($id: ID!) {
+    token(id: $id) {
+      id
+      name
+      tokenDayData(first: 30, orderBy: date, orderDirection: desc) {
+        date
+        priceUSD
+        volumeUSD
+      }
     }
   }
 `;
+
 export const GET_TOKEN_POOLS = gql`
   query GetTokenPools($tokenId: String!) {
     pools(

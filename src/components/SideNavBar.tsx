@@ -68,16 +68,6 @@ export default function SideNavBar() {
     <div className="fixed bottom-0 left-0 w-full md:w-64 p-4 bg-secondary shadow-md">
       <h2 className="text-lg font-semibold mb-4">Wallet Interactions</h2>
       <WalletConnector />
-      {isConnected && (
-        <div className="space-y-3 mt-2">
-          <Button onClick={handleApprove} className="w-full">
-            Approve USDC
-          </Button>
-          <Button onClick={handleBuy} className="w-full">
-            Buy Token
-          </Button>
-        </div>
-      )}
     </div>
   );
 }

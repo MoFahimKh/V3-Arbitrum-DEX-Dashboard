@@ -52,3 +52,6 @@ export const COINGECKO_CHART_BASE_URL =
 
 export const COINGECKO_ETH_PRICE_URL =
   "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd";
+
+export const TOKEN_ICON_URL = (address: string) =>
+  `https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/${address}/logo.png`;
