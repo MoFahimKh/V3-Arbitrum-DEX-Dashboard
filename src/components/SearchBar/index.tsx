@@ -48,22 +48,21 @@ export const SearchBar = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           onBlur={() => setTimeout(() => setShowResults(false), 200)}
           className="
-    w-full
-    pl-4 pr-12
-    rounded-2xl
-    bg-black
-    text-gray-300
-    placeholder:text-gray-500
-    border border-gray-600
-    focus:border-gray-400
-    focus:ring-0
-    focus:outline-none
-    shadow-none
-    text-base
-    transition
-  "
+            w-full
+            pl-4 pr-12
+            rounded-2xl
+            bg-black
+            text-gray-300
+            placeholder:text-gray-500
+            border border-gray-600
+            focus:border-gray-400
+            focus:ring-0
+            focus:outline-none
+            shadow-none
+            text-base
+            transition
+          "
         />
-
         {!searchTerm && (
           <span className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
             <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
