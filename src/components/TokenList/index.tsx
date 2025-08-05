@@ -5,9 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { SearchInput } from "@/components/ui/searchInput";
 import { TOKEN_LIST } from "@/utils/TOKEN_LIST";
 import { TokenIcon } from "@/components/TokenList/TokenIcon";
-import RedLine from "../../public/icons/redline.svg";
-import GreeLine from "../../public/icons/greenline.svg";
 import { TokenListSkeleton } from "../skeletons/TokenListSkeleton";
+import { TokenRow } from "./TokenRow";
 
 interface Token {
   __typename: "Token";
@@ -36,7 +35,6 @@ export const TokenList = () => {
 
   const liveTokens = data?.tokens;
   const fallbackTokens = TOKEN_LIST?.data?.tokens || [];
-
   const usingFallback = !loading && (!liveTokens || liveTokens.length === 0);
 
   const tokensToDisplay = (usingFallback ? fallbackTokens : liveTokens)?.filter(
@@ -53,19 +51,6 @@ export const TokenList = () => {
       setSortDirection("desc");
     }
   };
-
-  const mockPriceChange = () => (Math.random() * 4 - 2).toFixed(2);
-
-  const mockSparkline = (change: string) => (
-    <div className="w-16 h-7 flex items-center justify-center">
-      <span className={`inline-block w-4 h-4 rounded-full mr-1 `} />
-      {parseFloat(change) >= 0 ? (
-        <img src={RedLine} alt="" />
-      ) : (
-        <img src={GreeLine} alt="" />
-      )}
-    </div>
-  );
 
   return (
     <div className="space-y-2">
@@ -133,59 +118,9 @@ export const TokenList = () => {
                 </td>
               </tr>
             ) : (
-              tokensToDisplay.map((token: Token) => {
-                const price = (parseFloat(token.derivedETH) * 3500).toFixed(2);
-                const change1h = mockPriceChange();
-                const change1d = mockPriceChange();
-                return (
-                  <tr
-                    key={token.id}
-                    className="border-b border-[#24262c] hover:bg-[#191b1f] transition-colors cursor-pointer"
-                    onClick={() => navigate(`/token/${token.id}`)}
-                    style={{ fontWeight: "normal", fontSize: "15px" }}
-                  >
-                    <td className="px-6 py-4 flex items-center gap-2 text-[#e4e7ee]">
-                      <TokenIcon
-                        address={token.id}
-                        name={token.name}
-                        className="mr-2"
-                      />
-                      <span>{token.name}</span>
-                      <span className="ml-2 text-[#8b92a7] text-sm">
-                        {token.symbol}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-[#e4e7ee]">${price}</td>
-                    <td
-                      className={`px-6 py-4 ${
-                        parseFloat(change1h) >= 0
-                          ? "text-green-500"
-                          : "text-red-500"
-                      }`}
-                    >
-                      {parseFloat(change1h) >= 0 ? "▲" : "▼"}{" "}
-                      {Math.abs(parseFloat(change1h))}%
-                    </td>
-                    <td
-                      className={`px-6 py-4 ${
-                        parseFloat(change1d) >= 0
-                          ? "text-green-500"
-                          : "text-red-500"
-                      }`}
-                    >
-                      {parseFloat(change1d) >= 0 ? "▲" : "▼"}{" "}
-                      {Math.abs(parseFloat(change1d))}%
-                    </td>
-                    <td className="px-6 py-4 text-[#e4e7ee]">
-                      ${Number(token.totalValueLockedUSD).toLocaleString()}
-                    </td>
-                    <td className="px-6 py-4 text-[#e4e7ee]">
-                      ${Number(token.volumeUSD).toLocaleString()}
-                    </td>
-                    <td className="px-6 py-4">{mockSparkline(change1d)}</td>
-                  </tr>
-                );
-              })
+              tokensToDisplay.map((token: Token) => (
+                <TokenRow key={token.id} token={token} navigate={navigate} />
+              ))
             )}
           </tbody>
         </table>
