@@ -80,7 +80,6 @@ export const GET_TOKEN_DETAIL = gql`
     }
   }
 `;
-
 export const GET_TOKEN_DAY_DATAS = gql`
   query GetTokenDayDatas($id: ID!) {
     token(id: $id) {
@@ -91,6 +90,36 @@ export const GET_TOKEN_DAY_DATAS = gql`
         priceUSD
         volumeUSD
       }
+    }
+  }
+`;
+export const GET_TOKEN_DETAILS = gql`
+  query GetTokenFullStats($id: ID!) {
+    tokenHourDatas(
+      first: 2
+      orderBy: periodStartUnix
+      orderDirection: desc
+      where: { token: $id }
+    ) {
+      periodStartUnix
+      priceUSD
+    }
+    token(id: $id) {
+      id
+      symbol
+      name
+      decimals
+      derivedETH
+      totalValueLockedUSD
+      volumeUSD
+      totalSupply
+      tokenDayData(first: 2, orderBy: date, orderDirection: desc) {
+        date
+        priceUSD
+      }
+    }
+    bundle(id: "1") {
+      ethPriceUSD
     }
   }
 `;
