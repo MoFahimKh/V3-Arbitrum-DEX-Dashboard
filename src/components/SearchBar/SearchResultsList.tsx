@@ -1,20 +1,6 @@
 import { useTokenDetails } from "@/hooks/useTokenDetails";
+import { SearchResultRowProps, Token } from "@/types/searchRowTypes";
 import { formatUSD } from "@/utils/formatUsd";
-
-type Token = {
-  id: string;
-  symbol: string;
-  name: string;
-  derivedETH: string;
-  volumeUSD?: string;
-};
-
-type SearchResultRowProps = {
-  token: Token;
-  onTokenClick: (tokenId: string) => void;
-  idx: number;
-  isLast: boolean;
-};
 
 export function SearchResultRow({
   token,

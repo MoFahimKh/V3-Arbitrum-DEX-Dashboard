@@ -2,20 +2,7 @@ import { useTokenDetails } from "@/hooks/useTokenDetails";
 import { TokenIcon } from "@/components/TokenList/TokenIcon";
 import RedLine from "../../public/icons/redline.svg";
 import GreeLine from "../../public/icons/greenline.svg";
-
-type Token = {
-  id: string;
-  symbol: string;
-  name: string;
-  totalValueLockedUSD: string;
-  volumeUSD: string;
-  derivedETH: string;
-};
-
-type TokenRowProps = {
-  token: Token;
-  navigate: ReturnType<typeof import("react-router-dom").useNavigate>;
-};
+import { TokenRowProps } from "@/types/tokenRowTypes";
 
 export const TokenRow: React.FC<TokenRowProps> = ({ token, navigate }) => {
   const { token: liveToken, loading: detailsLoading } = useTokenDetails(

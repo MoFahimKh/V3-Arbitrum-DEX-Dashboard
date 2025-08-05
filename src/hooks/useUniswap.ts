@@ -74,7 +74,6 @@ export const useUniswap = () => {
         setError("Swap failed");
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [walletClient, address, chain]
   );
 

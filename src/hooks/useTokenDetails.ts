@@ -1,58 +1,6 @@
 import { GET_TOKEN_DETAILS } from "@/queries/tokens";
+import { QueryData, UseTokenDetailsResult } from "@/types/tokenDetails";
 import { useQuery } from "@apollo/client";
-
-type TokenHourData = {
-  periodStartUnix: string;
-  priceUSD: string;
-};
-
-type TokenDayData = {
-  date: string;
-  priceUSD: string;
-};
-
-type Token = {
-  id: string;
-  symbol: string;
-  name: string;
-  decimals: string;
-  derivedETH: string;
-  totalValueLockedUSD: string;
-  volumeUSD: string;
-  totalSupply: string;
-  tokenDayData: TokenDayData[];
-};
-
-type Bundle = {
-  ethPriceUSD: string;
-};
-
-type QueryData = {
-  tokenHourDatas: TokenHourData[];
-  token: Token;
-  bundle: Bundle;
-};
-
-type UseTokenDetailsResult = {
-  loading: boolean;
-  error?: Error;
-  token: {
-    id: string;
-    symbol: string;
-    name: string;
-    decimals: string;
-    derivedETH: string;
-    totalValueLockedUSD: string;
-    volumeUSD: string;
-    totalSupply: string;
-    tokenDayData: TokenDayData[];
-    currentPrice: number;
-    percentChange1h: number | null;
-    percentChange1d: number | null;
-    fdv: number | null;
-    ethPriceUSD: number;
-  } | null;
-};
 
 export function useTokenDetails(id: string): UseTokenDetailsResult {
   const { data, loading, error } = useQuery<QueryData>(GET_TOKEN_DETAILS, {

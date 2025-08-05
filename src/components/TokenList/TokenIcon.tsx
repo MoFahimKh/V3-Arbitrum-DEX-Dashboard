@@ -1,12 +1,6 @@
 import { TOKEN_ICON_URL } from "@/config/constants";
+import { TokenIconProps } from "@/types/tokenIconTypes";
 import React from "react";
-
-type TokenIconProps = {
-  address: string;
-  name: string;
-  alt?: string;
-  className?: string;
-};
 
 export const TokenIcon: React.FC<TokenIconProps> = ({
   address,
